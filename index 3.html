@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@400;500&family=M+PLUS+Rounded+1c:wght@400;500;700&family=Yomogi&display=swap" rel="stylesheet" />
+  <title>Happy Birthday ひよりちゃん</title>
+  <style>
+    :root{
+      --night:#08162f;
+      --night2:#171a4f;
+      --cream:#fff8e8;
+      --gold:#ffd978;
+      --pink:#ffb4cf;
+      --aqua:#79e6df;
+      --deep:#2a1f4f;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;font-family:"Kiwi Maru","M PLUS Rounded 1c","Hiragino Maru Gothic ProN","Hiragino Sans","Yu Gothic",sans-serif;background:var(--night);color:white}
+    body{overflow:hidden}
+    button{font:inherit}
+    #app{position:relative;width:100vw;height:100vh;min-height:100svh;overflow:hidden;background:
+      radial-gradient(circle at 50% 25%, rgba(91,108,255,.22), transparent 33%),
+      linear-gradient(180deg,var(--night2),var(--night) 62%,#050b18)}
+    .screen{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:opacity .8s ease,transform .8s ease}
+    .hidden{opacity:0;pointer-events:none;transform:scale(1.03)}
+    .stars{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
+    .star{position:absolute;z-index:1;width:2px;height:2px;border-radius:50%;background:white;box-shadow:0 0 8px #fff,0 0 14px rgba(255,255,255,.55);animation:twinkle 2.4s infinite ease-in-out}
+    @keyframes twinkle{0%,100%{opacity:.18;transform:scale(.75)}50%{opacity:1;transform:scale(1.55)}}
+    .sparkle-star{position:absolute;z-index:2;width:18px;height:18px;pointer-events:none;filter:drop-shadow(0 0 8px rgba(255,245,195,.95)) drop-shadow(0 0 18px rgba(255,221,130,.65));animation:glimmer 3.2s infinite ease-in-out;opacity:.95}
+    .sparkle-star::before,.sparkle-star::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:linear-gradient(180deg,rgba(255,255,255,0),#fff7d8,rgba(255,255,255,0));border-radius:999px}
+    .sparkle-star::before{width:3px;height:100%}
+    .sparkle-star::after{width:100%;height:3px}
+    .sparkle-star .diag1,.sparkle-star .diag2{position:absolute;left:50%;top:50%;width:100%;height:3px;background:linear-gradient(90deg,rgba(255,255,255,0),#fff2bf,rgba(255,255,255,0));border-radius:999px}
+    .sparkle-star .diag1{transform:translate(-50%,-50%) rotate(45deg)}
+    .sparkle-star .diag2{transform:translate(-50%,-50%) rotate(-45deg)}
+    @keyframes glimmer{0%,100%{opacity:.35;transform:scale(.7) rotate(0deg)}35%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.45) rotate(8deg)}65%{opacity:.85;transform:scale(1.08)} }
+
+    /* Opening */
+    #intro{flex-direction:column;justify-content:flex-end;padding-bottom:10vh}
+    .sky-title{position:absolute;top:12vh;text-align:center;width:100%;z-index:5;padding:0 16px}
+    .sky-title .small{display:none}
+    .sky-title h1{margin:.2rem 0 0;display:flex;flex-direction:column;align-items:center;gap:.45rem;font-size:clamp(2.5rem,10vw,5.8rem);font-weight:400;line-height:1.05;text-shadow:0 0 22px rgba(255,224,160,.35)}
+    .sky-title h1 span{color:var(--gold)}
+    .sky-title h1 .title-script{font-family:"Times New Roman",serif;letter-spacing:.03em;color:#fff6d7}
+    .sky-title h1 .title-name{font-family:"Times New Roman",serif;font-size:clamp(2rem,7vw,4.2rem);letter-spacing:.06em;color:#ffe9fb;text-shadow:0 0 18px rgba(255,214,244,.38),0 0 34px rgba(255,238,185,.22)}
+    .castle-wrap{position:absolute;bottom:8vh;width:min(90vw,620px);height:52vh;display:flex;align-items:flex-end;justify-content:center}
+    .castle{width:100%;height:100%}
+    .moon-glow{position:absolute;bottom:20vh;width:55vw;height:25vw;max-width:500px;max-height:230px;background:radial-gradient(ellipse,rgba(255,231,166,.2),transparent 68%);filter:blur(4px)}
+    .shooting{position:absolute;left:-15vw;top:19vh;width:130vw;height:52vh;pointer-events:none}
+    .trail{fill:none;stroke:url(#trailGrad);stroke-width:3;stroke-linecap:round;stroke-dasharray:760;stroke-dashoffset:760;filter:url(#glow);animation:drawTrail 3s 1s ease-out forwards}
+    .shooting-star{offset-path:path("M 15 255 C 165 15, 520 5, 780 150 C 950 245, 1010 195, 1110 110");offset-distance:0%;animation:fly 3s 1s ease-out forwards;filter:drop-shadow(0 0 8px white)}
+    @keyframes drawTrail{to{stroke-dashoffset:0}}
+    @keyframes fly{to{offset-distance:100%}}
+    .tap-intro{position:relative;z-index:8;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.12);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:white;padding:13px 24px;border-radius:999px;letter-spacing:.04em;font-family:"M PLUS Rounded 1c","Kiwi Maru",sans-serif;font-weight:700;box-shadow:0 8px 28px rgba(0,0,0,.18);animation:pulse 2s infinite}
+    @keyframes pulse{50%{transform:translateY(-3px);box-shadow:0 12px 34px rgba(0,0,0,.24),0 0 22px rgba(255,226,155,.18)}}
+
+    /* Party screen */
+    #party{padding:24px;overflow:auto;align-items:flex-start}
+    .party-inner{width:min(94vw,760px);padding:7vh 0 12vh;position:relative;z-index:5}
+    .party-heading{text-align:center;margin-bottom:24px}
+    .party-heading .eyebrow{font-size:.84rem;letter-spacing:.12em;opacity:.78;font-family:"M PLUS Rounded 1c","Kiwi Maru",sans-serif}
+    .party-heading h2{margin:.3rem 0 .2rem;font-family:"Yomogi","Kiwi Maru","M PLUS Rounded 1c",sans-serif;font-size:clamp(2.5rem,9vw,4.7rem);color:var(--gold);font-weight:400}
+    .party-heading p{margin:0;opacity:.85}
+
+    .card-shell{perspective:1200px;margin:24px auto 0;width:min(92vw,620px);min-height:410px}
+    .card{position:relative;width:100%;min-height:410px;transform-style:preserve-3d;transition:transform 1.1s cubic-bezier(.2,.7,.1,1);cursor:pointer}
+    .card.open{transform:rotateY(-180deg)}
+    .face{position:absolute;inset:0;border-radius:30px;backface-visibility:hidden;-webkit-backface-visibility:hidden;box-shadow:0 24px 60px rgba(0,0,0,.28);overflow:hidden}
+    .front{background:linear-gradient(145deg,#fffaf0,#ffe9f1);color:var(--deep);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:36px;border:8px solid rgba(255,215,120,.38)}
+    .front .gift{font-size:72px;filter:drop-shadow(0 8px 12px rgba(70,34,85,.16));animation:bob 2.2s infinite ease-in-out}
+    @keyframes bob{50%{transform:translateY(-8px) rotate(2deg)}}
+    .front h3{font-family:"Yomogi","Kiwi Maru","M PLUS Rounded 1c",sans-serif;font-size:2rem;margin:12px 0 4px;font-weight:400}
+    .front p{margin:0;opacity:.78;font-family:"M PLUS Rounded 1c","Kiwi Maru",sans-serif}
+    .back{transform:rotateY(180deg);background:linear-gradient(180deg,#fffdf9,#fff3f6);color:#3c3155;padding:28px 24px 30px;overflow:auto}
+    .back h3{text-align:center;font-family:"Yomogi","Kiwi Maru","M PLUS Rounded 1c",sans-serif;color:#6f8fb5;font-size:1.95rem;margin:0 0 16px;font-weight:400;text-shadow:0 1px 0 rgba(255,255,255,.7),0 0 14px rgba(111,143,181,.12)}
+    .message{white-space:pre-wrap;line-height:2.05;font-size:1.06rem;background:rgba(255,255,255,.74);border:1px solid rgba(143,85,137,.15);border-radius:22px;padding:20px;min-height:220px;font-family:"Yomogi","Kiwi Maru","M PLUS Rounded 1c","Hiragino Maru Gothic ProN","Hiragino Sans","Yu Gothic",sans-serif}
+    .signature{text-align:right;margin-top:16px;color:#6f8fb5;font-weight:700;font-family:"Yomogi","Kiwi Maru","M PLUS Rounded 1c",sans-serif;font-size:1.1rem}
+    .hint{text-align:center;margin-top:14px;font-size:.84rem;opacity:.76;font-family:"M PLUS Rounded 1c","Kiwi Maru",sans-serif}
+
+    /* Decorations */
+    .decor{position:absolute;z-index:4;pointer-events:none;filter:drop-shadow(0 8px 12px rgba(0,0,0,.25))}
+    .patch-plush{left:4vw;bottom:2.2vh;width:112px;animation:floaty 3s ease-in-out infinite}
+    .bear-band{right:2vw;bottom:7vh;width:190px;animation:floaty 3.6s .4s ease-in-out infinite}
+    .birds{right:4vw;top:7vh;width:170px;animation:floaty 3.2s .2s ease-in-out infinite}
+    .sea-buddies{left:3vw;top:2.5vh;width:185px;animation:floaty 3.1s .15s ease-in-out infinite}
+    @keyframes floaty{50%{transform:translateY(-10px) rotate(1deg)}}
+
+    .balloon{position:absolute;bottom:-140px;width:52px;height:66px;border-radius:50% 50% 48% 48%;opacity:.9;z-index:2;animation:rise linear infinite;box-shadow:inset -8px -10px 15px rgba(0,0,0,.12)}
+    .balloon:after{content:"";position:absolute;left:50%;top:65px;width:1px;height:95px;background:rgba(255,255,255,.42)}
+    .balloon:before{content:"";position:absolute;left:22px;bottom:-4px;border-left:5px solid transparent;border-right:5px solid transparent;border-top:8px solid currentColor}
+    @keyframes rise{to{transform:translateY(-125vh) rotate(9deg)}}
+
+    #confetti{position:fixed;inset:0;pointer-events:none;z-index:20}
+    .confetti-piece{position:absolute;top:-20px;width:9px;height:14px;border-radius:2px;animation:fall linear forwards}
+    @keyframes fall{to{transform:translate3d(var(--drift),110vh,0) rotate(900deg);opacity:.9}}
+
+    .spark{position:absolute;width:6px;height:6px;border-radius:50%;background:#fff3bd;box-shadow:0 0 14px #fff3bd;animation:spark 1.8s infinite ease-in-out}
+    @keyframes spark{0%,100%{transform:scale(.5);opacity:.2}50%{transform:scale(1.7);opacity:1}}
+
+    @media (max-width:600px){
+      .patch-plush{width:82px;left:-6px;bottom:0.8vh}
+      .bear-band{width:135px;right:-16px;bottom:4vh}
+      .birds{width:118px;right:-4px;top:8vh}
+      .sea-buddies{width:116px;left:-2px;top:7.5vh}
+      .party-inner{padding-top:5vh}
+      .card-shell,.card{min-height:440px}
+      .message{font-size:.96rem}
+      .sky-title{top:10vh}
+      .sky-title h1{gap:.35rem}
+      .sky-title h1 .title-name{font-size:clamp(1.8rem,8vw,3rem)}
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <div class="stars" id="stars"><i class="star" style="left:6%;top:10%;width:2.0px;height:2.0px;animation-delay:0.0s"></i><i class="star" style="left:12%;top:22%;width:2.6px;height:2.6px;animation-delay:0.35s"></i><i class="star" style="left:18%;top:8%;width:3.2px;height:3.2px;animation-delay:0.7s"></i><i class="star" style="left:26%;top:16%;width:3.8px;height:3.8px;animation-delay:1.0499999999999998s"></i><i class="star" style="left:31%;top:28%;width:2.0px;height:2.0px;animation-delay:1.4s"></i><i class="star" style="left:38%;top:10%;width:2.6px;height:2.6px;animation-delay:0.0s"></i><i class="star" style="left:44%;top:18%;width:3.2px;height:3.2px;animation-delay:0.35s"></i><i class="star" style="left:49%;top:8%;width:3.8px;height:3.8px;animation-delay:0.7s"></i><i class="star" style="left:55%;top:24%;width:2.0px;height:2.0px;animation-delay:1.0499999999999998s"></i><i class="star" style="left:62%;top:12%;width:2.6px;height:2.6px;animation-delay:1.4s"></i><i class="star" style="left:69%;top:20%;width:3.2px;height:3.2px;animation-delay:0.0s"></i><i class="star" style="left:76%;top:9%;width:3.8px;height:3.8px;animation-delay:0.35s"></i><i class="star" style="left:84%;top:15%;width:2.0px;height:2.0px;animation-delay:0.7s"></i><i class="star" style="left:91%;top:11%;width:2.6px;height:2.6px;animation-delay:1.0499999999999998s"></i><i class="star" style="left:9%;top:38%;width:3.2px;height:3.2px;animation-delay:1.4s"></i><i class="star" style="left:16%;top:48%;width:3.8px;height:3.8px;animation-delay:0.0s"></i><i class="star" style="left:24%;top:40%;width:2.0px;height:2.0px;animation-delay:0.35s"></i><i class="star" style="left:33%;top:52%;width:2.6px;height:2.6px;animation-delay:0.7s"></i><i class="star" style="left:43%;top:44%;width:3.2px;height:3.2px;animation-delay:1.0499999999999998s"></i><i class="star" style="left:52%;top:38%;width:3.8px;height:3.8px;animation-delay:1.4s"></i><i class="star" style="left:61%;top:47%;width:2.0px;height:2.0px;animation-delay:0.0s"></i><i class="star" style="left:71%;top:42%;width:2.6px;height:2.6px;animation-delay:0.35s"></i><i class="star" style="left:82%;top:50%;width:3.2px;height:3.2px;animation-delay:0.7s"></i><i class="star" style="left:90%;top:40%;width:3.8px;height:3.8px;animation-delay:1.0499999999999998s"></i><i class="star" style="left:14%;top:60%;width:2.0px;height:2.0px;animation-delay:1.4s"></i><i class="star" style="left:29%;top:63%;width:2.6px;height:2.6px;animation-delay:0.0s"></i><i class="star" style="left:40%;top:57%;width:3.2px;height:3.2px;animation-delay:0.35s"></i><i class="star" style="left:57%;top:61%;width:3.8px;height:3.8px;animation-delay:0.7s"></i><i class="star" style="left:73%;top:58%;width:2.0px;height:2.0px;animation-delay:1.0499999999999998s"></i><i class="star" style="left:87%;top:63%;width:2.6px;height:2.6px;animation-delay:1.4s"></i><i class="sparkle-star" style="left:11%;top:14%;width:20px;height:20px;animation-delay:0.0s"><span class="diag1"></span><span class="diag2"></span></i><i class="sparkle-star" style="left:22%;top:34%;width:16px;height:16px;animation-delay:0.3s"><span class="diag1"></span><span class="diag2"></span></i><i class="sparkle-star" style="left:36%;top:12%;width:24px;height:24px;animation-delay:0.6s"><span class="diag1"></span><span class="diag2"></span></i><i class="sparkle-star" style="left:53%;top:17%;width:18px;height:18px;animation-delay:0.8999999999999999s"><span class="diag1"></span><span class="diag2"></span></i><i class="sparkle-star" style="left:67%;top:9%;width:28px;height:28px;animation-delay:1.2s"><span class="diag1"></span><span class="diag2"></span></i><i class="sparkle-star" style="left:79%;top:27%;width:17px;height:17px;animation-delay:1.5s"><span class="diag1"></span><span class="diag2"></span></i><i class="sparkle-star" style="left:88%;top:18%;width:22px;height:22px;animation-delay:1.7999999999999998s"><span class="diag1"></span><span class="diag2"></span></i><i class="sparkle-star" style="left:17%;top:54%;width:19px;height:19px;animation-delay:2.1s"><span class="diag1"></span><span class="diag2"></span></i><i class="sparkle-star" style="left:47%;top:50%;width:21px;height:21px;animation-delay:2.4s"><span class="diag1"></span><span class="diag2"></span></i><i class="sparkle-star" style="left:72%;top:46%;width:25px;height:25px;animation-delay:2.6999999999999997s"><span class="diag1"></span><span class="diag2"></span></i></div>
+
+  <!-- =========
+       ここだけ後で書き換えればOK
+       ========= -->
+  <script>
+    const CARD = {
+      name: "ひよりちゃん",
+      message: `ひよりちゃんお誕生日おめでとう。
+
+まず、プレゼント遅れてごめんね。
+チケットはいつでも、いつまでも使えるひよりちゃん専用のチケットだから、大切に持っててね。
+
+一緒にディズニーランドに行けたのも、本当に楽しかったね。
+美味しいポテトチップスも、照り焼きチキンレッグも、冷麺も美味しかったね。
+他にも沢山あるけど、全部いい思い出だよ。
+
+フォレストシアターのショーもすごく感動した。
+でも、ショーを見て感動してるひよりちゃんを見てたら、それで余計に感極まった。
+
+涙腺ゆるゆるで、美味しいものを食べた時とか、感動するシーンを見た時とか、心を揺さぶられるとすぐ涙が出るひよりちゃんが大好きだよ。
+そういう素直なところも、優しいところも、これからもずっと大切にしてほしいなって思ってる。
+
+この1年、本当に色々なことがあったね。
+ひよりちゃんも、俺に対して不満に思ったことや、嫌だったことも沢山あると思う。
+
+付き合ってから、もう3年になるのかな。
+振り返ると本当に色んなことがあったけど、その分、一緒に過ごしてきた時間も思い出も沢山増えたね。
+楽しかったことも、しんどかったことも含めて、今までひよりちゃんと一緒に過ごしてこれたことを嬉しく思ってる。
+
+俺はいつもひよりちゃんのことを考えてるし、できるだけいつでも楽しい気持ちでいてほしいと思ってる。
+だからこれからは、もっともっとひよりちゃんを幸せにできる人になります。
+
+文章拙くてごめんね。
+この1年も一緒にいてくれてありがとう。
+いつも支えになってくれてありがとう。
+
+なんか途中から記念日寄りの文章になっちゃったけど、9月5日はひよりちゃんが生まれてきてくれた大切な日だから、改めてお誕生日おめでとう。
+
+これからも、もっともっとたくさん思い出作ろう。
+また仲良く、楽しい1年にしようね。`,
+      from: "ゆうと"
+    };
+  </script>
+
+  <section class="screen" id="intro" aria-label="オープニング">
+    <div class="sky-title">
+      <div class="small"></div>
+      <h1><span class="title-script">𝓗𝓪𝓹𝓹𝔂 𝓑𝓲𝓻𝓽𝓱𝓭𝓪𝔂</span><span class="title-name">H𝕚𝕪𝕠𝕣𝕚</span></h1>
+    </div>
+
+    <div class="moon-glow"></div>
+
+    <svg class="shooting" viewBox="0 0 1120 320" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="trailGrad" x1="0" x2="1">
+          <stop offset="0" stop-color="#ffffff" stop-opacity="0"/>
+          <stop offset=".25" stop-color="#fff2b7" stop-opacity=".35"/>
+          <stop offset=".8" stop-color="#ffffff" stop-opacity=".95"/>
+          <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+        </linearGradient>
+        <filter id="glow"><feGaussianBlur stdDeviation="3.2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      </defs>
+      <path class="trail" d="M 15 255 C 165 15, 520 5, 780 150 C 950 245, 1010 195, 1110 110"/>
+      <circle class="shooting-star" r="7" fill="white"/>
+    </svg>
+
+    <div class="castle-wrap">
+      <svg class="castle" viewBox="0 0 620 420" aria-label="オリジナルのお城シルエット">
+        <defs>
+          <linearGradient id="castleGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#24336a"/>
+            <stop offset="1" stop-color="#0c122a"/>
+          </linearGradient>
+        </defs>
+        <path fill="url(#castleGrad)" d="
+          M62 383h496v37H62z
+          M109 316h64v67h-64z M447 316h64v67h-64z
+          M177 268h74v115h-74z M369 268h74v115h-74z
+          M265 211h90v172h-90z
+          M295 116h30v95h-30z
+          M310 58l17 58h-34z
+          M135 246l18 70h-36z M475 246l18 70h-36z
+          M212 198l19 70h-38z M408 198l19 70h-38z
+          M310 177l28 34h-56z"/>
+        <g fill="#ffd978" opacity=".7">
+          <rect x="301" y="236" width="18" height="30" rx="7"/>
+          <rect x="201" y="300" width="14" height="24" rx="6"/>
+          <rect x="405" y="300" width="14" height="24" rx="6"/>
+          <rect x="130" y="338" width="12" height="21" rx="5"/>
+          <rect x="478" y="338" width="12" height="21" rx="5"/>
+        </g>
+        <g stroke="#d4b15b" stroke-width="2" stroke-linecap="round">
+          <line x1="310" y1="58" x2="310" y2="36"/>
+          <line x1="135" y1="246" x2="135" y2="226"/>
+          <line x1="475" y1="246" x2="475" y2="226"/>
+          <line x1="212" y1="198" x2="212" y2="178"/>
+          <line x1="408" y1="198" x2="408" y2="178"/>
+        </g>
+        <g>
+          <polygon points="310,36 332,42 310,48" fill="#ffb4cf"/>
+          <polygon points="135,226 154,231 135,236" fill="#8fe7df"/>
+          <polygon points="475,226 494,231 475,236" fill="#ffd978"/>
+          <polygon points="212,178 231,183 212,188" fill="#cdb9ff"/>
+          <polygon points="408,178 427,183 408,188" fill="#ffcf7d"/>
+        </g>
+      </svg>
+    </div>
+
+    <button class="tap-intro" id="enterBtn">Tap to Open ✨</button>
+  </section>
+
+  <section class="screen hidden" id="party" aria-label="バースデーカード">
+    <div class="party-inner">
+      <div class="party-heading">
+        <div class="eyebrow">HAPPY BIRTHDAY</div>
+        <h2 id="nameText"></h2>
+        <p>今年はちょっと特別なカードです。</p>
+      </div>
+
+      <div class="card-shell">
+        <div class="card" id="card">
+          <div class="face front">
+            <div class="gift">🎁</div>
+            <h3>ひらいてみて</h3>
+            <p>カードをタップ</p>
+          </div>
+          <div class="face back">
+            <h3>For <span id="nameText2"></span></h3>
+            <div class="message" id="messageText"></div>
+            <div class="signature" id="fromText"></div>
+          </div>
+        </div>
+      </div>
+      <div class="hint">もう一度タップするとカードを閉じられます</div>
+    </div>
+
+    <!-- オリジナルの海のなかまたち -->
+    <svg class="decor sea-buddies" viewBox="0 0 230 150" aria-label="海のなかまたち">
+      <g transform="translate(2,8)">
+        <rect x="18" y="18" width="72" height="72" rx="10" fill="#f4d54d"/>
+        <rect x="25" y="24" width="58" height="58" rx="8" fill="#f8e36c"/>
+        <circle cx="33" cy="36" r="4" fill="#e7bf2e"/><circle cx="75" cy="32" r="4" fill="#e7bf2e"/>
+        <circle cx="39" cy="62" r="4" fill="#e7bf2e"/><circle cx="69" cy="56" r="5" fill="#e7bf2e"/><circle cx="56" cy="42" r="3.5" fill="#e7bf2e"/>
+        <circle cx="42" cy="47" r="5" fill="#23314c"/><circle cx="65" cy="47" r="5" fill="#23314c"/>
+        <path d="M45 67q10 7 20 0" fill="none" stroke="#91593b" stroke-width="3.4" stroke-linecap="round"/>
+        <rect x="31" y="90" width="46" height="13" rx="2" fill="#ffffff"/>
+        <path d="M31 103h46v22H31z" fill="#9b6848"/>
+        <path d="M31 103h46v5H31z" fill="#c95a52"/>
+        <path d="M52 90v13" stroke="#60a7d9" stroke-width="4" stroke-linecap="round"/>
+        <path d="M52 92l-8 8h16z" fill="#d04f57"/>
+        <path d="M38 125v12M69 125v12" stroke="#f4d54d" stroke-width="6" stroke-linecap="round"/>
+        <path d="M31 97l-11 12M77 97l11 12" stroke="#f4d54d" stroke-width="8" stroke-linecap="round"/>
+      </g>
+      <g transform="translate(110,10)">
+        <path d="M50 7
+                 C57 18, 63 26, 72 36
+                 C82 32, 90 33, 98 37
+                 C88 47, 82 57, 79 69
+                 C82 82, 83 93, 80 106
+                 C69 100, 61 95, 53 92
+                 C46 100, 38 107, 28 116
+                 C26 103, 27 92, 30 79
+                 C22 69, 16 59, 6 48
+                 C17 42, 26 40, 35 41
+                 C41 30, 45 20, 50 7 Z" fill="#f39bb1"/>
+        <path d="M50 16
+                 C56 26, 60 32, 67 40
+                 C76 37, 83 37, 89 40
+                 C81 49, 76 58, 73 67
+                 C75 77, 76 85, 74 95
+                 C65 90, 58 86, 52 83
+                 C46 89, 40 96, 32 103
+                 C30 92, 31 84, 33 74
+                 C27 66, 22 58, 14 50
+                 C23 46, 30 45, 37 46
+                 C42 37, 46 28, 50 16 Z" fill="#f6b0c2" opacity=".9"/>
+        <circle cx="40" cy="43" r="4.3" fill="#23314c"/>
+        <circle cx="59" cy="43" r="4.3" fill="#23314c"/>
+        <path d="M40 57q9 8 18 0" fill="none" stroke="#91593b" stroke-width="3.2" stroke-linecap="round"/>
+        <path d="M30 70
+                 C42 67, 58 67, 71 70
+                 L68 98
+                 C59 95, 42 95, 33 98 Z" fill="#97d06d"/>
+        <path d="M31 80 C43 78, 57 78, 69 80" stroke="#b65ac9" stroke-width="4" stroke-linecap="round" stroke-dasharray="5 5" fill="none"/>
+        <path d="M33 88 C44 86, 56 86, 67 88" stroke="#b65ac9" stroke-width="4" stroke-linecap="round" stroke-dasharray="5 5" fill="none"/>
+        <path d="M49 70v27" stroke="#83bd59" stroke-width="2.5" stroke-linecap="round"/>
+      </g>
+    </svg>
+
+    <!-- オリジナルの「つぎはぎぬいぐるみ」 -->
+    <svg class="decor patch-plush" viewBox="0 0 120 150" aria-label="つぎはぎ風ぬいぐるみ">
+      <ellipse cx="61" cy="96" rx="38" ry="42" fill="#a7e7cf"/>
+      <circle cx="60" cy="50" r="34" fill="#b9f1dc"/>
+      <g fill="none" stroke="#f3d35a" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M52 25 Q42 13 45 4"/>
+        <path d="M60 24 Q60 10 60 2"/>
+        <path d="M68 25 Q78 13 75 4"/>
+      </g>
+      <circle cx="48" cy="48" r="4" fill="#4d4260"/><circle cx="73" cy="48" r="4" fill="#4d4260"/>
+      <path d="M52 65 Q60 71 68 65" fill="none" stroke="#4d4260" stroke-width="3" stroke-linecap="round"/>
+      <path d="M38 82 l18 10 l-16 13 z" fill="#ffb8c9" opacity=".9"/>
+      <path d="M77 79 l18 12 l-19 12 z" fill="#f4d66f" opacity=".9"/>
+      <g stroke="#6d6680" stroke-width="2"><path d="M41 20l7 10"/><path d="M73 19l-6 11"/><path d="M35 113l14-6"/><path d="M75 119l11-8"/></g>
+      <circle cx="37" cy="76" r="3" fill="#fff"/><circle cx="86" cy="69" r="3" fill="#fff"/>
+    </svg>
+
+    <!-- オリジナルのカントリー熊トリオ -->
+    <svg class="decor bear-band" viewBox="0 0 250 150" aria-label="カントリー調の熊バンド">
+      <g transform="translate(8,38)">
+        <circle cx="50" cy="46" r="33" fill="#9a6a43"/><circle cx="30" cy="21" r="13" fill="#9a6a43"/><circle cx="70" cy="21" r="13" fill="#9a6a43"/>
+        <ellipse cx="50" cy="53" rx="18" ry="14" fill="#c99566"/><circle cx="50" cy="47" r="5" fill="#3d2a2a"/>
+        <path d="M41 61q9 8 18 0" fill="none" stroke="#3d2a2a" stroke-width="3"/>
+        <path d="M17 18h66l-12-12H29z" fill="#d9b14f"/><rect x="28" y="6" width="43" height="13" rx="4" fill="#d9b14f"/>
+        <rect x="18" y="88" width="64" height="9" rx="5" fill="#6f472d"/>
+      </g>
+      <g transform="translate(86,23)">
+        <circle cx="50" cy="46" r="33" fill="#b58455"/><circle cx="30" cy="21" r="13" fill="#b58455"/><circle cx="70" cy="21" r="13" fill="#b58455"/>
+        <ellipse cx="50" cy="53" rx="18" ry="14" fill="#deb482"/><circle cx="50" cy="47" r="5" fill="#3d2a2a"/>
+        <path d="M41 61q9 8 18 0" fill="none" stroke="#3d2a2a" stroke-width="3"/>
+        <path d="M18 20h64l-10-13H28z" fill="#8a5440"/><rect x="27" y="7" width="45" height="13" rx="4" fill="#8a5440"/>
+        <circle cx="51" cy="98" r="23" fill="#c98355"/><circle cx="51" cy="98" r="8" fill="#8d5839"/>
+      </g>
+      <g transform="translate(164,38)">
+        <circle cx="50" cy="46" r="33" fill="#805338"/><circle cx="30" cy="21" r="13" fill="#805338"/><circle cx="70" cy="21" r="13" fill="#805338"/>
+        <ellipse cx="50" cy="53" rx="18" ry="14" fill="#b87a50"/><circle cx="50" cy="47" r="5" fill="#2f2225"/>
+        <path d="M41 61q9 8 18 0" fill="none" stroke="#2f2225" stroke-width="3"/>
+        <path d="M18 18h64l-12-11H30z" fill="#557c79"/><rect x="29" y="6" width="42" height="12" rx="4" fill="#557c79"/>
+        <path d="M28 92q22-20 44 0" fill="none" stroke="#d8bd68" stroke-width="7"/>
+      </g>
+    </svg>
+
+    <!-- オリジナルの南国の鳥たち -->
+    <svg class="decor birds" viewBox="0 0 190 150" aria-label="南国風の鳥たち">
+      <g transform="translate(0,22)">
+        <ellipse cx="52" cy="58" rx="31" ry="39" fill="#5ed2cf"/>
+        <circle cx="48" cy="38" r="25" fill="#79e6df"/>
+        <circle cx="41" cy="34" r="4" fill="#20223d"/>
+        <path d="M67 39l23 8-23 8z" fill="#f6bd56"/>
+        <path d="M28 66q-18 8-22 28q21-4 35-19z" fill="#4caeb0"/>
+        <path d="M46 14l10-12 8 15" fill="none" stroke="#8bdedb" stroke-width="7" stroke-linecap="round"/>
+        <path d="M42 15l-8-12-8 14" fill="none" stroke="#8bdedb" stroke-width="7" stroke-linecap="round"/>
+      </g>
+      <g transform="translate(78,2)">
+        <ellipse cx="52" cy="58" rx="31" ry="39" fill="#ff8cab"/>
+        <circle cx="48" cy="38" r="25" fill="#ffacc1"/>
+        <circle cx="41" cy="34" r="4" fill="#20223d"/>
+        <path d="M67 39l23 8-23 8z" fill="#f6bd56"/>
+        <path d="M28 66q-18 8-22 28q21-4 35-19z" fill="#e36e91"/>
+        <path d="M46 14l10-12 8 15" fill="none" stroke="#8bdedb" stroke-width="7" stroke-linecap="round"/>
+        <path d="M42 15l-8-12-8 14" fill="none" stroke="#8bdedb" stroke-width="7" stroke-linecap="round"/>
+      </g>
+    </svg>
+  </section>
+
+  <div id="confetti"></div>
+</div>
+
+<script>
+  const intro = document.getElementById("intro");
+  const party = document.getElementById("party");
+  const enterBtn = document.getElementById("enterBtn");
+  const card = document.getElementById("card");
+  const confettiLayer = document.getElementById("confetti");
+
+  document.getElementById("nameText").textContent = CARD.name;
+  document.getElementById("nameText2").textContent = CARD.name;
+  document.getElementById("messageText").textContent = CARD.message;
+  document.getElementById("fromText").textContent = CARD.from;
+
+  // Balloons
+  const balloonColors = ["#ff9dbb","#7fe0d6","#f6cf69","#b9a7ff","#ffb36a","#8fc8ff"];
+  function addBalloons(){
+    for(let i=0;i<12;i++){
+      const b=document.createElement("div");
+      b.className="balloon";
+      b.style.left=(Math.random()*96)+"vw";
+      b.style.background=balloonColors[i%balloonColors.length];
+      b.style.color=balloonColors[i%balloonColors.length];
+      b.style.animationDuration=(7+Math.random()*6)+"s";
+      b.style.animationDelay=(-Math.random()*8)+"s";
+      party.appendChild(b);
+    }
+  }
+
+  function burstConfetti(count=150){
+    const colors=["#ffd86a","#ff9fbd","#75e1d7","#b7a6ff","#ffb36a","#ffffff"];
+    for(let i=0;i<count;i++){
+      const c=document.createElement("span");
+      c.className="confetti-piece";
+      c.style.left=Math.random()*100+"vw";
+      c.style.background=colors[Math.floor(Math.random()*colors.length)];
+      c.style.animationDuration=(2.7+Math.random()*2.2)+"s";
+      c.style.animationDelay=(Math.random()*.5)+"s";
+      c.style.setProperty("--drift",(-90+Math.random()*180)+"px");
+      c.style.transform=`rotate(${Math.random()*180}deg)`;
+      confettiLayer.appendChild(c);
+      setTimeout(()=>c.remove(),5500);
+    }
+  }
+
+  let entered=false;
+  enterBtn.addEventListener("click",()=>{
+    if(entered) return;
+    entered=true;
+    intro.classList.add("hidden");
+    party.classList.remove("hidden");
+    addBalloons();
+    burstConfetti(190);
+    setTimeout(()=>card.classList.add("open"),900);
+  });
+
+  card.addEventListener("click",()=>{
+    card.classList.toggle("open");
+    if(card.classList.contains("open")) burstConfetti(80);
+  });
+</script>
+</body>
+</html>
